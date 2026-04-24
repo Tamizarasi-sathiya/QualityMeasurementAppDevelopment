@@ -7,53 +7,92 @@ import static org.junit.jupiter.api.Assertions.*;
 public class QCMGMT_App_Test {
 
     @Test
-    void testFeetEquality_SameValue() {
-        assertTrue(QCMGMT_App.compareFeet(1.0, 1.0));
+    void testEquality_FeetToFeet_SameValue() {
+        var a = new QCMGMT_App.QuantityLength(
+                1.0, QCMGMT_App.LengthUnit.FEET
+        );
+        var b = new QCMGMT_App.QuantityLength(
+                1.0, QCMGMT_App.LengthUnit.FEET
+        );
+        assertTrue(a.equals(b));
     }
 
     @Test
-    void testFeetEquality_DifferentValue() {
-        assertFalse(QCMGMT_App.compareFeet(1.0, 2.0));
+    void testEquality_InchToInch_SameValue() {
+        var a = new QCMGMT_App.QuantityLength(
+                1.0, QCMGMT_App.LengthUnit.INCH
+        );
+        var b = new QCMGMT_App.QuantityLength(
+                1.0, QCMGMT_App.LengthUnit.INCH
+        );
+        assertTrue(a.equals(b));
     }
 
     @Test
-    void testFeetEquality_NullComparison() {
-        QCMGMT_App.Feet f = new QCMGMT_App.Feet(1.0);
-        assertFalse(f.equals(null));
+    void testEquality_FeetToInch_EquivalentValue() {
+        var feet = new QCMGMT_App.QuantityLength(
+                1.0, QCMGMT_App.LengthUnit.FEET
+        );
+        var inch = new QCMGMT_App.QuantityLength(
+                12.0, QCMGMT_App.LengthUnit.INCH
+        );
+        assertTrue(feet.equals(inch));
     }
 
     @Test
-    void testFeetEquality_SameReference() {
-        QCMGMT_App.Feet f = new QCMGMT_App.Feet(1.0);
-        assertTrue(f.equals(f));
+    void testEquality_InchToFeet_EquivalentValue() {
+        var inch = new QCMGMT_App.QuantityLength(
+                12.0, QCMGMT_App.LengthUnit.INCH
+        );
+        var feet = new QCMGMT_App.QuantityLength(
+                1.0, QCMGMT_App.LengthUnit.FEET
+        );
+        assertTrue(inch.equals(feet));
     }
 
     @Test
-    void testInchesEquality_SameValue() {
-        assertTrue(QCMGMT_App.compareInches(1.0, 1.0));
+    void testEquality_FeetDifferentValue() {
+        var a = new QCMGMT_App.QuantityLength(
+                1.0, QCMGMT_App.LengthUnit.FEET
+        );
+        var b = new QCMGMT_App.QuantityLength(
+                2.0, QCMGMT_App.LengthUnit.FEET
+        );
+        assertFalse(a.equals(b));
     }
 
     @Test
-    void testInchesEquality_DifferentValue() {
-        assertFalse(QCMGMT_App.compareInches(1.0, 2.0));
+    void testEquality_InchDifferentValue() {
+        var a = new QCMGMT_App.QuantityLength(
+                1.0, QCMGMT_App.LengthUnit.INCH
+        );
+        var b = new QCMGMT_App.QuantityLength(
+                2.0, QCMGMT_App.LengthUnit.INCH
+        );
+        assertFalse(a.equals(b));
     }
 
     @Test
-    void testInchesEquality_NullComparison() {
-        QCMGMT_App.Inches i = new QCMGMT_App.Inches(1.0);
-        assertFalse(i.equals(null));
+    void testEquality_SameReference() {
+        var a = new QCMGMT_App.QuantityLength(
+                1.0, QCMGMT_App.LengthUnit.FEET
+        );
+        assertTrue(a.equals(a));
     }
 
     @Test
-    void testInchesEquality_SameReference() {
-        QCMGMT_App.Inches i = new QCMGMT_App.Inches(1.0);
-        assertTrue(i.equals(i));
+    void testEquality_NullComparison() {
+        var a = new QCMGMT_App.QuantityLength(
+                1.0, QCMGMT_App.LengthUnit.FEET
+        );
+        assertFalse(a.equals(null));
     }
 
     @Test
-    void testEquality_NonNumericInput() {
-        QCMGMT_App.Inches i = new QCMGMT_App.Inches(1.0);
-        String text = "abc";
-        assertFalse(i.equals(text));
+    void testEquality_NullUnit() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new QCMGMT_App.QuantityLength(1.0, null)
+        );
     }
 }
