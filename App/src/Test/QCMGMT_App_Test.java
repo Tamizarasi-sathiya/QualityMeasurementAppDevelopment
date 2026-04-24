@@ -2,37 +2,58 @@ package Test;
 
 import Main.QCMGMT_App;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class QCMGMT_App_Test {
+
     @Test
-    void testEquality_SameValue() {
-        QCMGMT_App.Feet a =
-                new QCMGMT_App.Feet(1.0);
-        QCMGMT_App.Feet b =
-                new QCMGMT_App.Feet(1.0);
-        assertTrue(a.equals(b));
+    void testFeetEquality_SameValue() {
+        assertTrue(QCMGMT_App.compareFeet(1.0, 1.0));
     }
+
     @Test
-    void testEquality_DifferentValue() {
-        QCMGMT_App.Feet a =
-                new QCMGMT_App.Feet(1.0);
-        QCMGMT_App.Feet b =
-                new QCMGMT_App.Feet(2.0);
-        assertFalse(a.equals(b));
+    void testFeetEquality_DifferentValue() {
+        assertFalse(QCMGMT_App.compareFeet(1.0, 2.0));
     }
+
     @Test
-    void testEquality_NullComparison() {
-        QCMGMT_App.Feet a =
-                new QCMGMT_App.Feet(1.0);
-        assertFalse(a.equals(null));
+    void testFeetEquality_NullComparison() {
+        QCMGMT_App.Feet f = new QCMGMT_App.Feet(1.0);
+        assertFalse(f.equals(null));
     }
+
     @Test
-    void testEquality_SameReference() {
-        QCMGMT_App.Feet a =
-                new QCMGMT_App.Feet(1.0);
-        assertTrue(a.equals(a));
+    void testFeetEquality_SameReference() {
+        QCMGMT_App.Feet f = new QCMGMT_App.Feet(1.0);
+        assertTrue(f.equals(f));
+    }
+
+    @Test
+    void testInchesEquality_SameValue() {
+        assertTrue(QCMGMT_App.compareInches(1.0, 1.0));
+    }
+
+    @Test
+    void testInchesEquality_DifferentValue() {
+        assertFalse(QCMGMT_App.compareInches(1.0, 2.0));
+    }
+
+    @Test
+    void testInchesEquality_NullComparison() {
+        QCMGMT_App.Inches i = new QCMGMT_App.Inches(1.0);
+        assertFalse(i.equals(null));
+    }
+
+    @Test
+    void testInchesEquality_SameReference() {
+        QCMGMT_App.Inches i = new QCMGMT_App.Inches(1.0);
+        assertTrue(i.equals(i));
+    }
+
+    @Test
+    void testEquality_NonNumericInput() {
+        QCMGMT_App.Inches i = new QCMGMT_App.Inches(1.0);
+        String text = "abc";
+        assertFalse(i.equals(text));
     }
 }
